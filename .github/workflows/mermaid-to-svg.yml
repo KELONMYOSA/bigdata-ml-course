@@ -2,6 +2,8 @@ name: Generate SVG from Mermaid
 
 on:
   push:
+    branches:
+      - '*'
     paths:
       - 'src/*.mmd'
 

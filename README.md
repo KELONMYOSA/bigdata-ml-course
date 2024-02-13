@@ -1,8 +1,6 @@
 # Homework assignments for the course "Big Data ML"
 
-> ➠ Each homework is in a branch - "Homework N", where N is the number of homework on the account.
->
-> ➠ The solution for verification will be sent to the pull request - "Homework N", where N is the number of homework on the account.
+> Each homework is in a branch - "Homework N", where N is the number of homework on the account.
 
 ## Homework 1 - Mindmap & C4 Model L1-2-3 Diagram
 

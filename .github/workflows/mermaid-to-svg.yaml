@@ -34,4 +34,4 @@ jobs:
           git config --global user.name "GitHub Action"
           git add ./docs/*.svg
           git commit -m "Automatically updated SVG diagrams" || echo "No changes to commit"
-          git push https://${{ secrets.GH_TOKEN }}@github.com/KELONMYOSA/bigdata-ml-course.git
+          git push

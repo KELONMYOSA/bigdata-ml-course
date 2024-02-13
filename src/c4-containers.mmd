@@ -1,0 +1,17 @@
+C4Context
+    title Агрегатор мероприятий MorePost - L2
+    Person(user, "Пользователь", "Использует Telegram бота или мобильное приложение для получения дайджеста мероприятий")
+    System_Boundary(morepost, "MorePost") {
+        Container(userApp, "Приложения пользователя", "Flutter, Python", "Позволяет пользователям получать дайджесты мероприятий и настраивать уведомления")
+        Container(backend, "Бэкенд", "FastAPI", "Обрабатывает запросы от пользовательских интерфейсов")
+        Container(parsers, "Парсеры", "Python", "Агрегируют данные из социальных сетей")
+        ContainerDb(db, "Хранилища данных", "PostgreSQL, HDFS", "Хранит сырые и обработанные данные")
+        Container(mlModels, "ML модели", "Python, PyTorch", "Классифицируют и суммаризируют мероприятия, данные для обучения хранит в HDFS")
+    }
+    System_Ext(social, "Социальные сети", "Источник мероприятий: VK, Telegram")
+    Rel(user, userApp, "Использует")
+    Rel(userApp, backend, "Отправляет запросы")
+    Rel(backend, db, "Использует обработанные данные")
+    Rel(parsers, social, "Агрегирует данные")
+    Rel(parsers, mlModels, "Отправляет данные для обработки")
+    Rel(mlModels, db, "Сохраняет обработанные данные и данные для обучения")

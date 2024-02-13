@@ -1,0 +1,45 @@
+C4Context
+    title Агрегатор мероприятий MorePost - L3
+
+    Person(user, "Пользователь", "Использует Telegram бота или мобильное приложение для получения дайджеста мероприятий")
+
+    Container_Boundary(app, "Приложения пользователя", "") {
+        Component(mobileApp, "Мобильное приложение", "Flutter", "Позволяет пользователям получать дайджесты мероприятий и настраивать уведомления")
+        Component(telegramBot, "Telegram бот", "Python", "Предоставляет пользователям дайджесты мероприятий через Telegram")
+    }
+
+    Container_Boundary(backend, "Бэкенд", "") {
+        Component(apiGateway, "API Gateway", "FastAPI", "Предоставляет единые точки доступа к функциям бэкенда")
+        Component(dataProcessingService, "Сервис обработки данных", "Python", "Обрабатывает и анализирует данные мероприятий")
+    }
+
+    Container_Boundary(parsers, "Парсеры", "") {
+        Component(vkParser, "VK Парсер", "Python", "Агрегирует посты из сообществ Вконтакте")
+        Component(tgParser, "TG Парсер", "Python", "Агрегирует посты из каналов в Telegram")
+    }
+
+    Container_Boundary(dataStorage, "Хранилища данных", "") {
+        Component(processedDataStorage, "PostgreSQL", "SQL", "Хранит обработанные данные и список сообществ")
+        Component(hdfs, "HDFS", "Hadoop Distributed File System", "Хранит большие объемы данных")
+    }
+
+    Container_Boundary(bigData, "Big Data ML", "") {
+        Component(mlModel, "ML модель", "Python, PyTorch", "Классифицирует и суммаризирует мероприятия")
+        Component(spark, "Spark", "Обработка и анализ данных", "Используется для обработки данных")
+    }
+
+    Container(kafka, "Kafka", "Система управления потоками данных", "Обеспечивает передачу данных между компонентами")
+
+
+    Rel(user, mobileApp, "Использует")
+    Rel(user, telegramBot, "Использует")
+    Rel(mobileApp, apiGateway, "Отправляет запросы")
+    Rel(telegramBot, apiGateway, "Отправляет запросы")
+    Rel(apiGateway, dataProcessingService, "Перенаправляет запросы на обработку данных")
+    Rel(dataProcessingService, processedDataStorage, "Использует обработанные данные")
+    Rel(vkParser, kafka, "Сырые данные из Вконтакте")
+    Rel(tgParser, kafka, "Сырые данные из Telegram")
+    Rel(kafka, spark, "Передает сырые данные для обработки")
+    Rel(spark, hdfs, "Передает данные в HDFS для долгосрочного хранения и использует для дообучения модели")
+    Rel(spark, mlModel, "Использует")
+    Rel(spark, processedDataStorage, "Сохраняет результаты обработки")

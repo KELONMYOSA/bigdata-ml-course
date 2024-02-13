@@ -3,7 +3,7 @@ name: Generate SVG from Mermaid
 on:
   push:
     paths:
-      - 'src/*.mmd'
+      - 'bigdata-ml-course/src/*.mmd'
 
 jobs:
   mermaid-to-svg:
